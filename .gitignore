@@ -27,5 +27,8 @@ node_modules
 contracts/build/
 contracts/README.md
 
+# truffle build
+build/
+
 # lock
 package-lock.json
