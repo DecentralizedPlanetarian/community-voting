@@ -5,7 +5,7 @@
 
  * [Voting](contracts/voting/Voting.sol) is built with a time limitation upon voting and proposals.  A vote or proposal can occur within 9 days of the period initializing.  Once this period has been completed, a stall(cooling off period) will occur for 5 days, ensuring that once the winner has been decided they have 5 days to prepare their presentation/demo for the next meet-up.
  * Utilizes [role-based permissioning](contracts/role/Operators.sol) scheme from [openzeppelin roles](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/7acd60d152ea83dbc776265ca4a44a3c680b9caf/contracts/access/Roles.sol).  At this time, admins can only add/remove members from the whitelist.
- * [whitelist](contracts/helpers/Whitelist.sol) ensures only authorized parties can propose and vote upon proposals.  This is to minimize parties creating multiple accounts and spam vote.
+ * [Whitelist](contracts/helpers/Whitelist.sol) ensures only authorized parties can propose and vote upon proposals.  This is to minimize parties creating multiple accounts and spam vote.
 
 
 ## Security
