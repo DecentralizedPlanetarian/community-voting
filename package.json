@@ -1,0 +1,32 @@
+{
+  "name": "community_voting",
+  "version": "0.0.1",
+  "description": "Smart Contracts used by DefiAssociation/DefiSwitzerland for community voting for whom should be presenting the following event.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-personal:DecentralizedPlanetarian/community-voting.git"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "security",
+    "defiassociation",
+    "defiswitzerland"
+  ],
+  "author": "Connor Howe <connorpersonal@protonmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "ganache-cli": "^6.9.1",
+    "openzeppelin-test-helpers": "^0.5.1",
+    "solidity-coverage": "^0.7.4",
+    "truffle": "^5.1.21",
+    "truffle-flattener": "^1.4.3"
+  }
+}
