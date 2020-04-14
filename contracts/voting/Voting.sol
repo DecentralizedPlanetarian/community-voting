@@ -46,7 +46,7 @@ contract Voting is Whitelist {
     * @dev Reverts if not in voting time range.
     */
     modifier onlyWhileOpen {
-        require(block.timestamp >= currentPeriod && block.timestamp <= currentRange(), "Voting: not within voting range.");
+        require(block.timestamp >= currentPeriod && block.timestamp <= getCurrentRange(), "Voting: not within voting range.");
         _;
     }
 
@@ -54,7 +54,7 @@ contract Voting is Whitelist {
     * @dev Reverts if in voting time range, and greater than stall period.
     */
     modifier onlyWhileClosed {
-        require(block.timestamp >= currentRange() && block.timestamp <= STALL_PERIOD, "Voting: still within voting range.");
+        require(block.timestamp >= getCurrentRange() && block.timestamp <= STALL_PERIOD, "Voting: still within voting range.");
         _;
     }
 
@@ -128,7 +128,7 @@ contract Voting is Whitelist {
     * @dev Get voting end of current period.
     * @return uint256 voting end epoch time.
     */
-    function currentRange()
+    function getCurrentRange()
         public
         view
         returns(uint256)
