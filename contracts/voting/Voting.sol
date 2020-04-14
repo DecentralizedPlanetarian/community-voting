@@ -198,7 +198,7 @@ contract Voting is Whitelist {
 
         require(count < 256, "Voting: good luck, you have too many proposals, you're screwed ;) ");
 
-        for(uint256 i = 0; i < set.count(); i++ ){
+        for(uint256 i = 0; i < count; i++ ){
             uint256 voteCount = proposals[set.keyAtIndex(i)].voteCount;
             if(voteCount > winningVoteCount){
                 winningVoteCount = voteCount;
