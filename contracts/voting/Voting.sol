@@ -38,8 +38,8 @@ contract Voting is Whitelist {
 
     event ProposalCreated(address indexed account, bytes32 indexed identifier, uint256 period);
     event ProposalRevoked(address indexed account, bytes32 indexed identifier, uint256 period);
-
     event VoteCasted(address indexed account, bytes32 indexed voter, bytes32 indexed identifier, uint256 period);
+    event WinnerDetermined(address indexed creator, bytes32 indexed identifier, uint256 period, string description);
     event NewPeriod(address indexed account, uint256 indexed period);
 
     /**
@@ -115,6 +115,9 @@ contract Voting is Whitelist {
         public
         onlyWhileClosed
     {
+        bytes32 winningProposal = _determineWinningProposal(); // Could just keep track of votes/hashes per each vote, unecessary gas usage tho.
+        emit WinnerDetermined(proposals[winningProposal].creator, winningProposal, currentPeriod, proposals[winningProposal].description);
+
         set.nukeSet();
         currentPeriod = STALL_PERIOD;
 
@@ -175,12 +178,34 @@ contract Voting is Whitelist {
     function _insertVote(bytes32 _voter, bytes32 _proposal)
         internal
     {
-        require(set.exists(_proposal), "Voting: proposal does not exist");
+        require(set.exists(_proposal), "Voting: proposal does not exist.");
 
         set.insert(_voter); // will revert if exists
         votes[_voter] = Vote(msg.sender, _proposal, true);
 
         uint256 _votes = proposals[_proposal].voteCount;
         proposals[_proposal].voteCount = _votes.add(1);
+    }
+
+    function _determineWinningProposal()
+        internal
+        view
+        returns (bytes32)
+    {
+        uint256 winningVoteCount;
+        uint256 winningVoteIndex;
+        uint256 count = set.count();
+
+        require(count < 256, "Voting: good luck, you have too many proposals, you're screwed ;) ");
+
+        for(uint256 i = 0; i < set.count(); i++ ){
+            uint256 voteCount = proposals[set.keyAtIndex(i)].voteCount;
+            if(voteCount > winningVoteCount){
+                winningVoteCount = voteCount;
+                winningVoteIndex = i;
+            }
+        }
+
+        return set.keyAtIndex(winningVoteIndex);
     }
 }
