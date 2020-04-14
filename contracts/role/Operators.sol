@@ -20,7 +20,7 @@ contract Operators {
      * @dev Reverts if caller does not have admin role assigned.
      */
     modifier onlyAdmin() {
-        require(isAdmin(msg.sender), "Operators: caller does not have the admin role");
+        require(isAdmin(msg.sender), "Operators: caller does not have the admin role.");
         _;
     }
 
@@ -48,7 +48,7 @@ contract Operators {
      * @param _account address that should be revoked admin privileges.
      */
     function removeAdmin(address _account) public onlyAdmin {
-        require(_account != msg.sender, "BaseOperators: admin can not remove himself");
+        require(_account != msg.sender, "Operators: admin can not remove himself.");
         _removeAdmin(_account);
     }
 

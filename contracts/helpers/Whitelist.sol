@@ -15,11 +15,10 @@ contract Whitelist is Operators {
     event WhitelistToggled(address indexed account, bool whitelisted);
 
     /**
-     * @dev Reverts if _account is not whitelisted.
-     * @param _account address to determine if whitelisted.
+     * @dev Reverts if msg.sender is not whitelisted.
      */
-    modifier onlyWhitelisted(address _account) {
-        require(isWhitelisted(_account), "Whitelist: account is not whitelisted");
+    modifier onlyWhitelisted() {
+        require(isWhitelisted(msg.sender), "Whitelist: account is not whitelisted.");
         _;
     }
 
@@ -28,7 +27,7 @@ contract Whitelist is Operators {
      * @param _address address to validate.
      */
     modifier onlyValidAddress(address _address) {
-        require(_address != address(0), "Whitelist: invalid address");
+        require(_address != address(0), "Whitelist: invalid address.");
         _;
     }
 
@@ -68,8 +67,8 @@ contract Whitelist is Operators {
      * @param _addresses address array.
      * @param _toggled whitelist/unwhitelist.
      */
-    function batchToggleWhitelist(address[] memory _addresses, bool _toggled) 
-        public 
+    function batchToggleWhitelist(address[] memory _addresses, bool _toggled)
+        public
         onlyAdmin
     {
         require(_addresses.length <= 256, "Whitelist: batch count is greater than 256");
